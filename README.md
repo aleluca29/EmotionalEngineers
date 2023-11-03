@@ -1,6 +1,6 @@
-# Emo-tionalEngineers
+# EmotionalEngineers
 
-## **Emo-tional Engineers: Your Digital Mental Health Companion**
+## **Emotional Engineers: Your Digital Mental Health Companion**
 
 ### **Project Overview:**
 

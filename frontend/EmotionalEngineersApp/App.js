@@ -1,5 +1,5 @@
 import React from 'react';
-import AvatarScreen from './screens/AvatarScreen'; 
+import AvatarScreen from './src/screens/AvatarScreen';
 
 const App = () => {
   return <AvatarScreen />;  
