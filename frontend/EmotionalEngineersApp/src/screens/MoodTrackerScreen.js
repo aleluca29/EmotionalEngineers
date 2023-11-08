@@ -18,6 +18,8 @@ const MoodScreen = ({ navigation }) => {
 
         // ... more emoji objects
     ];
+    const factors = ['Work', 'Family', 'Sleep', 'Health', 'Friends', 'Relationships', 'Education'];
+
 
     return (
         <ScrollView style={styles.container}>
@@ -51,7 +53,17 @@ const MoodScreen = ({ navigation }) => {
             <Text style={styles.subtitle}>What's affecting your mood?</Text>
             <View style={styles.factorsContainer}>
                 {/* Factor buttons will go here */}
-                <TouchableOpacity style={styles.factorButton}><Text>Work</Text></TouchableOpacity>
+                <View style={styles.factorsContainer}>
+                    {factors.map((factor, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            onPress={() => handleFactorPress(factor)}
+                            style={styles.factorButton}
+                        >
+                            <Text style={styles.factorText}>{factor}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
                 {/* ... more buttons ... */}
             </View>
 
@@ -60,9 +72,12 @@ const MoodScreen = ({ navigation }) => {
                 style={styles.input}
                 multiline
                 placeholder="How is your day going? Write about your thoughts..."
+                placeholderTextColor="#2A0800" // Set the placeholder text color
                 onChangeText={setThoughts}
                 value={thoughts}
             />
+
+
 
             <TouchableOpacity style={styles.helpButton}>
                 <Text style={styles.helpButtonText}>Take help</Text>
@@ -110,22 +125,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center', // Center the text within the container if it's not full width
         marginVertical: 20,
     },
-
-    factorsContainer: {
-        // styles for the factors affecting mood container
-    },
-    factorButton: {
-        // styles for each factor button
-    },
     input: {
-        backgroundColor: '#FFF',
-        minHeight: 100,
-        borderColor: '#2A0800',
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 10,
-        textAlignVertical: 'top',
-        marginVertical: 20,
+        backgroundColor: '#F4DBD8', // Set the background color
+        color: '#2A0800', // Set the text color
+        minHeight: 100, // Minimum height for the input box
+        borderColor: '#2A0800', // Border color
+        borderWidth: 1, // Border width
+        borderRadius: 10, // Border radius for rounded corners
+        padding: 10, // Padding inside the input box
+        textAlignVertical: 'top', // Align text to the top
+        marginVertical: 20, // Margin vertical
+        width: '80%', // Less width, you can adjust as needed
+        alignSelf: 'center', // Center the input box
     },
     helpButton: {
         backgroundColor: '#8B4513',
@@ -168,6 +179,30 @@ const styles = StyleSheet.create({
         height: 50, // Set the height for your emoji images
         resizeMode: 'contain', // Ensure the entire emoji is visible and aspect ratio is maintained
         marginHorizontal: 10,
+    },
+    factorsContainer: {
+        flexDirection: 'row', // Align items in a row
+        flexWrap: 'wrap', // Allow the contents to wrap to the next line
+        justifyContent: 'space-around', // Evenly distribute space around the items
+        alignItems: 'center', // Center items vertically
+        marginVertical: 10,
+    },
+    factorButton: {
+        backgroundColor: '#F4DBD8', // The specified button color
+        borderRadius: 20, // Rounded corners
+        paddingVertical: 8, // Vertical padding
+        paddingHorizontal: 16, // Horizontal padding
+        margin: 5, // Margin around the buttons to ensure they don't touch
+        // Additional styling as needed
+    },
+    factorText: {
+        color: '#2A0800', // Text color
+        fontWeight: 'bold', // Make the text bold
+        fontSize: 16, // Increase the font size
+        textAlign: 'center', // Center the text inside the button
+
+
+        // Add text styling as needed
     },
 });
 

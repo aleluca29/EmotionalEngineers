@@ -6,7 +6,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import MoodTrackerScreen from "./src/screens/MoodTrackerScreen";
 
 const App = () => {
-  return <AvatarScreen />;
+  return <MoodTrackerScreen />;
 };
 
 export default App;
