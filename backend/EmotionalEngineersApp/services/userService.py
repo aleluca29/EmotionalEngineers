@@ -1,25 +1,11 @@
-from models import userModel
-from data_access import userRepository
+from werkzeug.security import check_password_hash
 
-def create_user(user: userModel.UserCreate):
-    # Business logic for creating a user
-    hashed_password = hash_password(user.password)
-    user.password = hashed_password
-    return userRepository.create(user)
+class UserService:
+    def __init__(self, user_repository):
+        self.user_repository = user_repository
 
-def authenticate_user(credentials: userModel.UserLogin):
-    # Business logic for authenticating a user
-    user = userRepository.get_user_by_username(credentials.username)
-    if not user:
+    def verify_user(self, email, password):
+        user = self.user_repository.find_by_email(email)
+        if user and check_password_hash(user.password_hash, password):
+            return user
         return None
-    if verify_password(credentials.password, user.password):
-        return user
-    return None
-
-def hash_password(password: str) -> str:
-    # Use a hashing library, like bcrypt, to hash the password
-    pass
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    # Use the hashing library to verify the password against its hash
-    pass

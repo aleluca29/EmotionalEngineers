@@ -1,12 +1,11 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String
+from your_orm_base import Base  # Import your ORM base class
 
-class UserBase(BaseModel):
-    username: str
-    email: str
+class User(Base):
+    __tablename__ = 'users'
 
-class UserCreate(UserBase):
-    password: str
+    id = Column(Integer, primary_key=True)
+    email = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
 
-class UserLogin(BaseModel):
-    username: str
-    password: str
+    # Add more fields as needed
