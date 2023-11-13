@@ -76,16 +76,22 @@ const MoodScreen = ({ navigation }) => {
                 onChangeText={setThoughts}
                 value={thoughts}
             />
+            {/* Add your Image component here */}
+            <View style={styles.imageContainer}>
+                <Image
+                    source={require('../../assets/take_help.png')} // Replace with your image's actual path
+                    style={styles.imageStyle}
+                />
+            </View>
 
 
+            {/* Footer */}
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.backButtonText}>Back to Home Page</Text>
+                </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity style={styles.helpButton}>
-                <Text style={styles.helpButtonText}>Take help</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text>Back to Home Page</Text>
-            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -128,32 +134,33 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#F4DBD8', // Set the background color
         color: '#2A0800', // Set the text color
-        minHeight: 100, // Minimum height for the input box
-        borderColor: '#2A0800', // Border color
-        borderWidth: 1, // Border width
-        borderRadius: 10, // Border radius for rounded corners
-        padding: 10, // Padding inside the input box
-        textAlignVertical: 'top', // Align text to the top
+        minHeight: 120, // Adjust the height as needed
+        paddingHorizontal: 20, // Horizontal padding inside the input box
+        textAlignVertical: 'center', // Vertically center the text
         marginVertical: 20, // Margin vertical
-        width: '80%', // Less width, you can adjust as needed
-        alignSelf: 'center', // Center the input box
+        width: '80%', // Width of the input box, adjust as needed
+        alignSelf: 'center', // Center the input box horizontally
+        borderRadius: 20, // Set to at least half of the minHeight for an oval shape
+        borderWidth: 0, // Remove border
+        fontSize: 16, // Adjust font size as necessary
     },
-    helpButton: {
-        backgroundColor: '#8B4513',
-        borderRadius: 25,
-        paddingVertical: 10,
-        paddingHorizontal: 30,
-        alignSelf: 'center',
-        marginVertical: 20,
-    },
-    helpButtonText: {
-        color: '#FFF',
-        fontSize: 18,
-        textAlign: 'center',
-    },
+
     backButton: {
-        alignSelf: 'center',
-        marginVertical: 20,
+        backgroundColor: '#2A0800', // Background color of the button
+        borderRadius: 30, // More rounded corners
+        paddingVertical: 15, // Increased vertical padding
+        paddingHorizontal: 30, // Increased horizontal padding
+        marginTop: 20, // Space above the button
+        marginBottom: 20, // Space below the button
+        // alignSelf: 'center', // Center button, not needed if footer is centering content
+        width: '80%', // Set width to 80% of the footer's width
+        // Remove width if you want padding to define the size
+    },
+    backButtonText: {
+        color: '#F4DBD8', // Text color
+        fontSize: 20, // Increased font size
+        fontWeight: 'bold', // Font weight
+        textAlign: 'center', // Center text
     },
     overlayImage: {
         width: '50%', // Smaller width as a percentage of its container
@@ -190,7 +197,7 @@ const styles = StyleSheet.create({
     factorButton: {
         backgroundColor: '#F4DBD8', // The specified button color
         borderRadius: 20, // Rounded corners
-        paddingVertical: 8, // Vertical padding
+        paddingVertical: 10, // Vertical padding
         paddingHorizontal: 16, // Horizontal padding
         margin: 5, // Margin around the buttons to ensure they don't touch
         // Additional styling as needed
@@ -204,6 +211,23 @@ const styles = StyleSheet.create({
 
         // Add text styling as needed
     },
+    imageContainer: {
+        alignItems: 'flex-end', // Align image container to the right
+        marginTop: -50, // Space between the text input and the image
+        marginRight: 10, // Space from the right edge of the screen
+    },
+    imageStyle: {
+        width: 170, // Set the width of your image
+        height: 170, // Set the height of your image
+        resizeMode: 'contain', // Keep the image's aspect ratio
+    },
+    footer: {
+        backgroundColor: '#775144', // Background color of the footer
+        padding: 10, // Padding inside the footer
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
+    },
+
 });
 
 export default MoodScreen;
