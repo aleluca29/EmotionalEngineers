@@ -1,18 +1,15 @@
-from flask import request
-from userService import UserService
-from userRepository import UserRepository
-from your_database_session import session  # Import your database session
+from fastapi import APIRouter, HTTPException
+from dto.userDto import LoginRequest, LoginResponse, ErrorResponse
+from services.userService import UserService
+from dal.userRepository import UserRepository
 
-user_service = UserService(UserRepository(session))
+router = APIRouter()
+user_service = UserService(UserRepository())
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.json
-    user_dto = LoginDTO(data['email'], data['password'])
-    user = user_service.verify_user(user_dto.email, user_dto.password)
-
+@router.post("/login", response_model=LoginResponse, responses={401: {"model": ErrorResponse}})
+async def login(login_request: LoginRequest):
+    user = user_service.login_user(login_request.email, login_request.password)
     if user:
-        # Generate token or return success response
-        return {"message": "Login successful"}, 200
+        return LoginResponse(message="Login successful", user_id=str(user.id))
     else:
-        return {"message": "Invalid credentials"}, 401
+        raise HTTPException(status_code=401, detail="Invalid credentials")

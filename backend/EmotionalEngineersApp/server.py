@@ -1,9 +1,11 @@
 from fastapi import FastAPI
-from api import userRoutes, moodRoutes, meditationRoutes, chatRoutes
+from utils.dbConnection import init_db
+from api.userRoutes import router as user_router
 
 app = FastAPI()
 
-app.include_router(userRoutes.router, prefix="/user", tags=["Users"])
-app.include_router(moodRoutes.router, prefix="/mood", tags=["Moods"])
-app.include_router(meditationRoutes.router, prefix="/meditation", tags=["Meditations"])
-app.include_router(chatRoutes.router, prefix="/chat", tags=["ChatBot"])
+# Initialize database
+init_db()
+
+# Include routers
+app.include_router(user_router, prefix="/user", tags=["Users"])

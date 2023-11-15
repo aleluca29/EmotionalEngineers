@@ -1,11 +1,5 @@
-from sqlalchemy import Column, Integer, String
-from your_orm_base import Base  # Import your ORM base class
+from mongoengine import Document, StringField
 
-class User(Base):
-    __tablename__ = 'users'
-
-    id = Column(Integer, primary_key=True)
-    email = Column(String, unique=True, nullable=False)
-    password_hash = Column(String, nullable=False)
-
-    # Add more fields as needed
+class User(Document):
+    email = StringField(required=True, unique=True)
+    password_hash = StringField(required=True)

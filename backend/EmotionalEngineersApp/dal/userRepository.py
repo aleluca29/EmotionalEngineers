@@ -1,6 +1,5 @@
-class UserRepository:
-    def __init__(self, session):
-        self.session = session
+from models.userModel import User
 
-    def find_by_email(self, email):
-        return self.session.query(User).filter(User.email == email).first()
+class UserRepository:
+    def find_by_email(self, email: str):
+        return User.objects(email=email).first()
