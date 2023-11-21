@@ -24,72 +24,72 @@ const LoginScreen = ({ navigation }) => {
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-        <View style={styles.container}>
-            <ImageBackground
-                source={require('../../assets/rainbow.png')}
-                style={styles.backgroundImage}
-            >
-                <View style={styles.overlayContainer}>
-                    <Text style={styles.titleText}>LOG IN</Text>
+            <View style={styles.container}>
+                <ImageBackground
+                    source={require('../../assets/rainbow.png')}
+                    style={styles.backgroundImage}
+                >
+                    <View style={styles.overlayContainer}>
+                        <Text style={styles.titleText}>LOG IN</Text>
 
-                    {/* Email Input */}
-                    <View style={styles.inputContainer}>
-                        <Image
-                            source={require('../../assets/icon_email.png')}
-                            style={styles.icon}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="EMAIL"
-                            placeholderTextColor="#6f4e37"
-                            keyboardType="email-address"
-                        />
-                    </View>
+                        {/* Email Input */}
+                        <View style={styles.inputContainer}>
+                            <Image
+                                source={require('../../assets/icon_email.png')}
+                                style={styles.icon}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="EMAIL"
+                                placeholderTextColor="#6f4e37"
+                                keyboardType="email-address"
+                            />
+                        </View>
 
-                    {/* Password Input */}
-                    <View style={styles.inputContainer}>
-                        <Image
-                            source={require('../../assets/icon_password.png')}
-                            style={styles.icon}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="PASSWORD"
-                            placeholderTextColor="#6f4e37"
-                            secureTextEntry
-                        />
-                    </View>
+                        {/* Password Input */}
+                        <View style={styles.inputContainer}>
+                            <Image
+                                source={require('../../assets/icon_password.png')}
+                                style={styles.icon}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="PASSWORD"
+                                placeholderTextColor="#6f4e37"
+                                secureTextEntry
+                            />
+                        </View>
 
-                    {/* Register Prompt */}
-                    <View style={styles.registerContainer}>
-                        <Text style={styles.registerText}>
-                            Don't you have an account yet?
-                        </Text>
-                        <Pressable onPress={navigateToRegister}>
-                            <Text style={styles.registerLink}>
-                                Register now
+                        {/* Register Prompt */}
+                        <View style={styles.registerContainer}>
+                            <Text style={styles.registerText}>
+                                Don't you have an account yet?
                             </Text>
-                        </Pressable>
+                            <Pressable onPress={navigateToRegister}>
+                                <Text style={styles.registerLink}>
+                                    Register now
+                                </Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.fixedContainer}>
-                {/* Login Button */}
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => { /* Logic to handle login */ }}>
-                    <Text style={styles.buttonText}>Log in</Text>
-                </TouchableOpacity>
+                    <View style={styles.fixedContainer}>
+                        {/* Login Button */}
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => { /* Logic to handle login */ }}>
+                            <Text style={styles.buttonText}>Log in</Text>
+                        </TouchableOpacity>
 
-                {/* Brain Image */}
-                <Image
-                    source={require('../../assets/brain.png')}
-                    style={styles.brainImage}
-                />
+                        {/* Brain Image */}
+                        <Image
+                            source={require('../../assets/brain.png')}
+                            style={styles.brainImage}
+                        />
+                    </View>
+                </ImageBackground>
+                {/* Footer */}
+                <View style={styles.footer}>
+                    {/* You can add any content you want in the footer here */}
                 </View>
-            </ImageBackground>
-            {/* Footer */}
-            <View style={styles.footer}>
-                {/* You can add any content you want in the footer here */}
             </View>
-        </View>
         </KeyboardAvoidingView>
     );
 };

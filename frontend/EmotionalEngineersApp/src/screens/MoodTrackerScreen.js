@@ -18,7 +18,7 @@ const MoodScreen = ({ navigation }) => {
 
         // ... more emoji objects
     ];
-    const factors = ['Work', 'Family', 'Sleep', 'Health', 'Friends', 'Relationships', 'Education'];
+    const factors = [ 'Sleep', 'Health', 'Friends','Education'];
 
 
     return (
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         borderRadius: 20, // Rounded corners
         paddingVertical: 10, // Vertical padding
         paddingHorizontal: 16, // Horizontal padding
-        margin: 5, // Margin around the buttons to ensure they don't touch
+        margin: 3, // Margin around the buttons to ensure they don't touch
         // Additional styling as needed
     },
     factorText: {

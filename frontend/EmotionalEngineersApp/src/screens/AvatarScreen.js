@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 
 const AvatarScreen = () => {
-    const [name, setName] = useState('Rusan Ioana Madalina');
+    const [name, setName] = useState('Ana Pop');
     const [dob, setDob] = useState('23/05/1995');
     const [country, setCountry] = useState('Romania');
 

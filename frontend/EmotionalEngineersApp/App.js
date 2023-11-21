@@ -8,7 +8,7 @@ import MeditationScreen from './src/screens/MeditationScreen';
 import ChatScreen from './src/screens/ChatScreen';
 
 const App = () => {
-  return <MeditationScreen/>;
+  return <AvatarScreen/>;
 };
 
 export default App;

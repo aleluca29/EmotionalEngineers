@@ -22,7 +22,7 @@ import bannerImg from '../../assets/banner.png';
 const { width, height } = Dimensions.get('window');
 
 
-const iconSize = width * 0.04;
+const iconSize = width * 0.08;
 
 const MeditationScreen = () => {
 

@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase', // Capitalize all letters
         position: 'absolute',
         top: -150, // Adjust to move text to the top left
-        left : -150, // Adjust as needed
+        left : -170, // Adjust as needed
     },
     therapySubtitle: {
         color: '#2A0800', // Brown color
