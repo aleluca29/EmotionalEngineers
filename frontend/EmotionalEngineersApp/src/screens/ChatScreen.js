@@ -66,7 +66,7 @@ const ChatScreen = () => {
                 <View style={styles.askBar}>
                     <TextInput
                         style={styles.askInput}
-                        placeholder="Ask me anything..."
+                        placeholder="Ask me anything you want..."
                         placeholderTextColor="#000"
                     />
                     <TouchableOpacity style={styles.sendButton}>
