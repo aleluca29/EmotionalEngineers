@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         padding: 6,
     },
     icon: {
-        width: 70,  // Increased size
+        width: 80,  // Increased size
         height: 55, // Increased size
     },
     inputGroup: {
