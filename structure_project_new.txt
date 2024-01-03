@@ -1,0 +1,43 @@
+root
+│
+├── api
+│   ├── __init__.py
+│   ├── chatRoutes.py
+│   ├── meditationRoutes.py
+│   ├── moodRoutes.py
+│   └── userRoutes.py
+│
+├── dal
+│   ├── __init__.py
+│   ├── meditationRepository.py
+│   ├── moodRepository.py
+│   └── userRepository.py
+│
+├── dto
+│   ├── __init__.py
+│   ├── chatDto.py
+│   ├── meditationDto.py
+│   ├── moodDto.py
+│   └── userDto.py
+│
+├── models
+│   ├── __init__.py
+│   ├── meditationModel.py
+│   ├── moodModel.py
+│   └── userModel.py
+│
+├── services
+│   ├── __init__.py
+│   ├── chatService.py
+│   ├── meditationService.py
+│   ├── moodService.py
+│   └── userService.py
+│
+└── utils
+    ├── __init__.py
+    ├── dbConnection.py
+    └── global-bundle.pem
+│
+├── README.md
+├── requirements.txt
+└── server.py
