@@ -1,8 +1,9 @@
 import pytest
 from fastapi.testclient import TestClient
 from server import app
-from utils.dbConnection import init_test_db
 from utils.dbConnection import add_test_user
+from utils.dbConnection import init_test_db
+
 
 # Pytest fixture to run before each test
 @pytest.fixture(autouse=True)
@@ -25,14 +26,15 @@ def test_register_success():
 
 
 def test_register_with_existing_email():
-    # Assuming testuser@example.com already registered
+    add_test_user("testuser@example.com", "password123")
     response = client.post("/user/register", json={
         "email": "testuser@example.com",
         "password": "newpassword123",
         "confirm_password": "newpassword123"
     })
     assert response.status_code == 400
-    assert "error" in response.json()
+    assert "detail" in response.json()
+    assert response.json()["detail"] == "Email already in use"
 
 
 def test_register_with_mismatched_passwords():
@@ -42,7 +44,8 @@ def test_register_with_mismatched_passwords():
         "confirm_password": "password321"
     })
     assert response.status_code == 400
-    assert "error" in response.json()
+    assert "detail" in response.json()
+    assert response.json()["detail"] == "Passwords do not match"
 
 
 def test_register_with_invalid_email():
@@ -51,10 +54,7 @@ def test_register_with_invalid_email():
         "password": "password123",
         "confirm_password": "password123"
     })
-    assert response.status_code == 422  # HTTP 422 for validation errors
-
-
-
+    assert response.status_code == 422
 
 
 def test_login_success():
