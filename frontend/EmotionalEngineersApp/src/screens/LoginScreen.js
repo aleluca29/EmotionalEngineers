@@ -7,27 +7,31 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
-    Pressable,
     KeyboardAvoidingView,
+    ScrollView,
     Platform,
+    useWindowDimensions,
 } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
+    const { width } = useWindowDimensions(); // Hooks API for real-time dimensions
+
     // Function to handle the navigation to the Register screen
     const navigateToRegister = () => {
-        // Replace this with your own navigation logic
-        // Example: navigation.navigate('RegisterScreen');
+        navigation.navigate('RegisterScreen');
     };
 
     return (
         <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         >
-            <View style={styles.container}>
+            <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
                 <ImageBackground
                     source={require('../../assets/rainbow.png')}
-                    style={styles.backgroundImage}
+                    style={[styles.backgroundImage, { width }]} // Apply the dynamic width here
+                    resizeMode="cover"
                 >
                     <View style={styles.overlayContainer}>
                         <Text style={styles.titleText}>LOG IN</Text>
@@ -65,16 +69,16 @@ const LoginScreen = ({ navigation }) => {
                             <Text style={styles.registerText}>
                                 Don't you have an account yet?
                             </Text>
-                            <Pressable onPress={navigateToRegister}>
+                            <TouchableOpacity onPress={navigateToRegister}>
                                 <Text style={styles.registerLink}>
                                     Register now
                                 </Text>
-                            </Pressable>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.fixedContainer}>
                         {/* Login Button */}
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => { /* Logic to handle login */ }}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => {/* Logic to handle login */}}>
                             <Text style={styles.buttonText}>Log in</Text>
                         </TouchableOpacity>
 
@@ -85,11 +89,10 @@ const LoginScreen = ({ navigation }) => {
                         />
                     </View>
                 </ImageBackground>
-                {/* Footer */}
                 <View style={styles.footer}>
                     {/* You can add any content you want in the footer here */}
                 </View>
-            </View>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 };
@@ -99,19 +102,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#C09891',
     },
+    scrollView: {
+        flex: 1,
+    },
+    scrollViewContent: {
+        flexGrow: 1,
+    },
     backgroundImage: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
     },
     overlayContainer: {
         backgroundColor: 'rgba(255,255,255,0.5)',
         padding: 20,
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#2A0800',
-        borderRadius: 5,
-        marginTop: 150,
-
     },
     titleText: {
         fontSize: 28,
@@ -135,9 +139,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#2A0800',
         color: '#2A0800',
-        paddingHorizontal: 0,
-        marginHorizontal: 10,
-        textTransform: 'uppercase', // This will capitalize the placeholder
     },
     buttonContainer: {
         backgroundColor: '#2A0800',
@@ -146,25 +147,20 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: '60%',
         alignSelf: 'center',
-        position: 'absolute',
-        bottom: 300,
+        marginBottom: 20,
     },
     buttonText: {
-
-        fontSize: 18,
-        fontWeight: 'bold',
         textAlign: 'center',
         color: '#F4DBD8',
+        fontWeight: 'bold',
+        fontSize: 18, // Consider using a scaling library for different screen sizes
     },
     registerContainer: {
-        marginTop: 20,
-        alignSelf: 'flex-end', // Align the register container to the right
-        paddingRight: 0, // Adjust the padding to move text more to the right
+        alignSelf: 'center',
     },
     registerText: {
-        fontSize: 14,
         color: '#2A0800',
-
+        fontSize: 14, // Consider using a scaling library for different screen sizes
     },
     registerLink: {
         fontWeight: 'bold',
@@ -172,29 +168,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textDecorationLine: 'underline',
         marginTop: 5,
-
     },
     brainImage: {
-        position: 'absolute',
-        bottom: 60,
-        right: 40,
+        marginTop: 20,
         width: 170,
         height: 170,
+        alignSelf: 'center',
         resizeMode: 'contain',
     },
     fixedContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        // Adjust padding or margin as necessary to position your elements
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
     },
     footer: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        height: 60, // Set the height of the footer
-        backgroundColor: '#775144', // A brown color for the footer
+        height: 60,
+        backgroundColor: '#775144',
         justifyContent: 'center',
         alignItems: 'center',
     },
