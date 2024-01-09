@@ -1,6 +1,8 @@
-from dal.userRepository import UserRepository
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from dal.userRepository import UserRepository
 from models.userModel import User
+
 
 class UserService:
     def __init__(self, user_repository: UserRepository):
@@ -23,3 +25,10 @@ class UserService:
         hashed_password = generate_password_hash(password)
         new_user = User(email=email, password_hash=hashed_password).save()
         return {"message": "Registration successful", "user_id": str(new_user.id)}
+
+    def update_profile(self, email: str, name: str, date_of_birth, country: str):
+        user = self.user_repository.find_by_email(email)
+        if not user:
+            return {"error": "User not found"}
+        self.user_repository.update_user_profile(user, name, date_of_birth, country)
+        return {"message": "Profile updated successfully"}

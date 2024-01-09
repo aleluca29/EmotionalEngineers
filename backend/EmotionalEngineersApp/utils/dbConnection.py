@@ -1,9 +1,10 @@
 import logging
 import os
 
-from models.userModel import User
 from mongoengine import connect, disconnect
 from werkzeug.security import generate_password_hash
+
+from models.userModel import User
 
 # Constants
 PROD_DB_NAME = 'msa'
