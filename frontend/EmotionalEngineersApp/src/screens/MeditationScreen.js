@@ -7,9 +7,8 @@ import {
     ImageBackground,
     TouchableOpacity,
     Linking,
-    Dimensions,
+    useWindowDimensions,
 } from 'react-native';
-
 
 import iconHeart from '../../assets/heart.png';
 import iconHeadphones from '../../assets/headphones.png';
@@ -18,97 +17,88 @@ import secondIcon from '../../assets/icon2.png';
 import borderImg from '../../assets/border.png';
 import bannerImg from '../../assets/banner.png';
 
-
-const { width, height } = Dimensions.get('window');
-
-
-const iconSize = width * 0.08;
-
-const MeditationScreen = () => {
+const MeditationScreen = ({ navigation }) => {
+    const { width, height } = useWindowDimensions();
+    const iconSize = width * 0.08;
 
     const openYouTubeVideo = (url) => {
         Linking.openURL(url).catch((err) => console.error("Couldn't load page", err));
     };
 
-
     const navigateToHome = () => {
-        console.log('Navigate to Home');
-
+        navigation.navigate('HomeScreen');
     };
 
     return (
-        <View style={styles.container}>
-
+        <View style={styles(width, height, iconSize).container}>
             <View style={{ height: height * 0.10 }} />
 
-            <Text style={styles.title}>Meditation time!</Text>
+            <Text style={styles(width, height, iconSize).title}>Meditation time!</Text>
 
-
-            <Text style={styles.subtitle}>
+            <Text style={styles(width, height, iconSize).subtitle}>
                 Ease the mind into a restful night’s sleep with these deep, ambient tones.
             </Text>
 
             <View style={{ height: height * 0.05 }} />
 
-            <View style={styles.row}>
-
-                <View style={styles.pair}>
-                    <Image source={iconHeart} style={styles.icon} />
-                    <Text style={styles.textBox}>24.234{'\n'}favorites</Text>
+            <View style={styles(width, height, iconSize).row}>
+                <View style={styles(width, height, iconSize).pair}>
+                    <Image source={iconHeart} style={styles(width, height, iconSize).icon} />
+                    <Text style={styles(width, height, iconSize).textBox}>24.234{'\n'}favorites</Text>
                 </View>
 
                 <View style={{ width: width * 0.55 }} />
 
-                <View style={styles.pair}>
-                    <Image source={iconHeadphones} style={styles.icon} />
-                    <Text style={styles.textBox}>34.234{'\n'}listeners</Text>
+                <View style={styles(width, height, iconSize).pair}>
+                    <Image source={iconHeadphones} style={styles(width, height, iconSize).icon} />
+                    <Text style={styles(width, height, iconSize).textBox}>34.234{'\n'}listeners</Text>
                 </View>
             </View>
 
             <View style={{ height: height * 0.05 }} />
 
-            <Text style={styles.pickMeditationText}>Pick a Meditation</Text>
+            <Text style={styles(width, height, iconSize).pickMeditationText}>Pick a Meditation</Text>
 
             <View style={{ height: height * 0.02 }} />
 
-            <View style={styles.videoLinkContainer}>
+            <View style={styles(width, height, iconSize).videoLinkContainer}>
                 <TouchableOpacity
-                    style={styles.videoLink}
+                    style={styles(width, height, iconSize).videoLink}
                     onPress={() => openYouTubeVideo('https://www.youtube.com/watch?v=aJOTlE1K90k')}
                 >
-                    <ImageBackground source={secondIcon} style={styles.iconOverlay} imageStyle={styles.iconBase}>
-                        <Image source={firstIcon} style={styles.iconTop} />
+                    <ImageBackground source={secondIcon} style={styles(width, height, iconSize).iconOverlay} imageStyle={styles(width, height, iconSize).iconBase}>
+                        <Image source={firstIcon} style={styles(width, height, iconSize).iconTop} />
                     </ImageBackground>
-                    <Text style={styles.videoTitle}>Play Relaxing Sounds for Sleep</Text>
+                    <Text style={styles(width, height, iconSize).videoTitle}>Play Relaxing Sounds for Sleep</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.videoLink}
+                    style={styles(width, height, iconSize).videoLink}
                     onPress={() => openYouTubeVideo('https://www.youtube.com/watch?v=5qap5aO4i9A')}
                 >
-                    <ImageBackground source={secondIcon} style={styles.iconOverlay} imageStyle={styles.iconBase}>
-                        <Image source={firstIcon} style={styles.iconTop} />
+                    <ImageBackground source={secondIcon} style={styles(width, height, iconSize).iconOverlay} imageStyle={styles(width, height, iconSize).iconBase}>
+                        <Image source={firstIcon} style={styles(width, height, iconSize).iconTop} />
                     </ImageBackground>
-                    <Text style={styles.videoTitle}>Play Calm Piano Music 24/7</Text>
+                    <Text style={styles(width, height, iconSize).videoTitle}>Play Calm Piano Music 24/7</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.bannerContainer}>
-                <Image source={bannerImg} style={styles.bannerImage} />
+            <View style={styles(width, height, iconSize).bannerContainer}>
+                <Image source={bannerImg} style={styles(width, height, iconSize).bannerImage} />
             </View>
 
             <View style={{ height: height * 0.02 }} />
 
-            <View style={styles.bottomContainer}>
-                <Image source={borderImg} style={styles.bannerStyle} />
-                <TouchableOpacity onPress={navigateToHome} style={styles.homeButton}>
-                    <Text style={styles.homeButtonText}>Back to Home Page</Text>
+            <View style={styles(width, height, iconSize).bottomContainer}>
+                <Image source={borderImg} style={styles(width, height, iconSize).bannerStyle} />
+                <TouchableOpacity onPress={navigateToHome} style={styles(width, height, iconSize).homeButton}>
+                    <Text style={styles(width, height, iconSize).homeButtonText}>Back to Home Page</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = (width, height, iconSize) => StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#C09891',
@@ -158,13 +148,11 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginBottom: 10,
     },
-
     bannerImage: {
         width: '90%',
         height: 150,
         resizeMode: 'contain',
     },
-
     iconOverlay: {
         width: 30,
         height: 30,
@@ -172,7 +160,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 10,
     },
-
     iconTop: {
         position: 'absolute',
         width: 8,
@@ -182,7 +169,6 @@ const styles = StyleSheet.create({
         top: '50%',
         marginTop: -8,
     },
-
     videoLink: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -197,7 +183,6 @@ const styles = StyleSheet.create({
     videoLinkContainer: {
         alignItems: 'flex-start',
     },
-
     bottomContainer: {
         position: 'absolute',
         bottom: 0,
@@ -205,7 +190,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         zIndex: 3,
     },
-
     bannerStyle: {
         width: '100%',
         height: 90,

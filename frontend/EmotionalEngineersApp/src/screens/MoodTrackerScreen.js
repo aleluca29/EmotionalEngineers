@@ -1,94 +1,87 @@
 import React, { useState } from 'react';
 import {
-    StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image, StatusBar, Platform,
+    StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image, StatusBar, Platform, useWindowDimensions
 } from 'react-native';
 
 const MoodScreen = ({ navigation }) => {
     const [thoughts, setThoughts] = useState('');
+    const { width, height } = useWindowDimensions();
+
     const handleEmojiPress = (emoji) => {
-        // Handle the press event, possibly setting state or navigating
         console.log('Emoji pressed:', emoji);
     };
+
     const emojis = [
         { image: require('../../assets/emoji1.png') },
         { image: require('../../assets/emoji2.png') },
         { image: require('../../assets/emoji3.png') },
         { image: require('../../assets/emoji4.png') },
         { image: require('../../assets/emoji5.png') },
-
-        // ... more emoji objects
     ];
-    const factors = [ 'Sleep', 'Health', 'Friends','Education'];
 
+    const factors = ['Sleep', 'Health', 'Friends', 'Education'];
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.header}>
+        <ScrollView style={styles(width, height).container}>
+            <View style={styles(width, height).header}>
                 <Image
-                    source={require('../../assets/white_arrow.png')} // Replace with your photo's actual path
-                    style={styles.profilePhoto}
+                    source={require('../../assets/white_arrow.png')}
+                    style={styles(width, height).profilePhoto}
                 />
                 <Image
-                    source={require('../../assets/Brown_Arrow.png')} // The new image you want to overlay
-                    style={styles.overlayImage}
+                    source={require('../../assets/Brown_Arrow.png')}
+                    style={styles(width, height).overlayImage}
                 />
 
                 {/* Rest of the header content */}
             </View>
 
-            <Text style={styles.subtitle}>How are you feeling today?</Text>
-            {/* You would add your emoji images here */}
-            <View style={styles.emojiContainer}>
+            <Text style={styles(width, height).subtitle}>How are you feeling today?</Text>
+            <View style={styles(width, height).emojiContainer}>
                 {emojis.map((emoji, index) => (
                     <TouchableOpacity
                         key={index}
                         onPress={() => handleEmojiPress(emoji)}
-                        style={styles.emojiButton}
+                        style={styles(width, height).emojiButton}
                     >
-                        <Image source={emoji.image} style={styles.emoji} />
+                        <Image source={emoji.image} style={styles(width, height).emoji} />
                     </TouchableOpacity>
                 ))}
             </View>
 
-            <Text style={styles.subtitle}>What's affecting your mood?</Text>
-            <View style={styles.factorsContainer}>
-                {/* Factor buttons will go here */}
-                <View style={styles.factorsContainer}>
-                    {factors.map((factor, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            onPress={() => handleFactorPress(factor)}
-                            style={styles.factorButton}
-                        >
-                            <Text style={styles.factorText}>{factor}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-                {/* ... more buttons ... */}
+            <Text style={styles(width, height).subtitle}>What's affecting your mood?</Text>
+            <View style={styles(width, height).factorsContainer}>
+                {factors.map((factor, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => handleEmojiPress(factor)}
+                        style={styles(width, height).factorButton}
+                    >
+                        <Text style={styles(width, height).factorText}>{factor}</Text>
+                    </TouchableOpacity>
+                ))}
             </View>
 
-            <Text style={styles.subtitle}>Let's write about it</Text>
+            <Text style={styles(width, height).subtitle}>Let's write about it</Text>
             <TextInput
-                style={styles.input}
+                style={styles(width, height).input}
                 multiline
                 placeholder="How is your day going? Write about your thoughts..."
-                placeholderTextColor="#2A0800" // Set the placeholder text color
+                placeholderTextColor="#2A0800"
                 onChangeText={setThoughts}
                 value={thoughts}
             />
-            {/* Add your Image component here */}
-            <View style={styles.imageContainer}>
+
+            <View style={styles(width, height).imageContainer}>
                 <Image
-                    source={require('../../assets/take_help.png')} // Replace with your image's actual path
-                    style={styles.imageStyle}
+                    source={require('../../assets/take_help.png')}
+                    style={styles(width, height).imageStyle}
                 />
             </View>
 
-
-            {/* Footer */}
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                    <Text style={styles.backButtonText}>Back to Home Page</Text>
+            <View style={styles(width, height).footer}>
+                <TouchableOpacity style={styles(width, height).backButton} onPress={() => navigation.navigate('HomeScreen')}>
+                    <Text style={styles(width, height).backButtonText}>Back to Home Page</Text>
                 </TouchableOpacity>
             </View>
 
@@ -96,138 +89,120 @@ const MoodScreen = ({ navigation }) => {
     );
 };
 
-const styles = StyleSheet.create({
+const styles = (width, height) => StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#C09891',
-        // If you have a SafeAreaView, you might not need padding at the top
     },
     header: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         padding: 18,
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Only needed for Android
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     },
     profilePhoto: {
-        width: 120, // Adjust the size as needed
-        height: 60, // Adjust the size as needed
+        width: width * 0.3,
+        height: height * 0.1,
         marginTop: 20,
-        resizeMode: 'contain', // This will ensure the image is not cut
-
+        resizeMode: 'contain',
     },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+    overlayImage: {
+        width: width * 0.5,
+        height: height * 0.2,
+        position: 'absolute',
+        top: 50,
+        left: 10,
+        resizeMode: 'contain',
+    },
+    subtitle: {
+        fontSize: width * 0.06,
         color: '#2A0800',
+        fontWeight: 'bold',
+        textAlign: 'center',
         alignSelf: 'center',
         marginVertical: 20,
     },
-    subtitle: {
-        fontSize: 25,
-        color: '#2A0800',
-        fontWeight: 'bold', // Make the font bold
-        textAlign: 'center', // Center the text horizontally
-        alignSelf: 'center', // Center the text within the container if it's not full width
-        marginVertical: 20,
-    },
-    input: {
-        backgroundColor: '#F4DBD8', // Set the background color
-        color: '#2A0800', // Set the text color
-        minHeight: 120, // Adjust the height as needed
-        paddingHorizontal: 20, // Horizontal padding inside the input box
-        textAlignVertical: 'center', // Vertically center the text
-        marginVertical: 20, // Margin vertical
-        width: '80%', // Width of the input box, adjust as needed
-        alignSelf: 'center', // Center the input box horizontally
-        borderRadius: 20, // Set to at least half of the minHeight for an oval shape
-        borderWidth: 0, // Remove border
-        fontSize: 16, // Adjust font size as necessary
-    },
-
-    backButton: {
-        backgroundColor: '#2A0800', // Background color of the button
-        borderRadius: 30, // More rounded corners
-        paddingVertical: 15, // Increased vertical padding
-        paddingHorizontal: 30, // Increased horizontal padding
-        marginTop: 20, // Space above the button
-        marginBottom: 20, // Space below the button
-        // alignSelf: 'center', // Center button, not needed if footer is centering content
-        width: '80%', // Set width to 80% of the footer's width
-        // Remove width if you want padding to define the size
-    },
-    backButtonText: {
-        color: '#F4DBD8', // Text color
-        fontSize: 20, // Increased font size
-        fontWeight: 'bold', // Font weight
-        textAlign: 'center', // Center text
-    },
-    overlayImage: {
-        width: '50%', // Smaller width as a percentage of its container
-        height: '60%', // Smaller height as a percentage of its container
-        position: 'absolute',
-        top: 50, // Adjust top position as needed
-        left: 10, // Adjust left position as needed
-        resizeMode: 'contain', // This will ensure the image is not cut
-    },
     emojiContainer: {
-        flexDirection: 'row', // Align items in a row
-        // justifyContent: 'space-evenly', // Evenly space the emoji images across the container
-        alignItems: 'center', // Center items vertically
+        flexDirection: 'row',
+        alignItems: 'center',
         marginVertical: 20,
         marginHorizontal: 20,
-
+        justifyContent: 'space-around',
     },
     emojiButton: {
-        // You can add styles for the touchable area if needed
+        // Additional styles if needed
     },
     emoji: {
-        width: 50, // Set the width for your emoji images
-        height: 50, // Set the height for your emoji images
-        resizeMode: 'contain', // Ensure the entire emoji is visible and aspect ratio is maintained
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
         marginHorizontal: 10,
     },
     factorsContainer: {
-        flexDirection: 'row', // Align items in a row
-        flexWrap: 'wrap', // Allow the contents to wrap to the next line
-        justifyContent: 'space-around', // Evenly distribute space around the items
-        alignItems: 'center', // Center items vertically
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        alignItems: 'center',
         marginVertical: 10,
     },
     factorButton: {
-        backgroundColor: '#F4DBD8', // The specified button color
-        borderRadius: 20, // Rounded corners
-        paddingVertical: 10, // Vertical padding
-        paddingHorizontal: 16, // Horizontal padding
-        margin: 3, // Margin around the buttons to ensure they don't touch
-        // Additional styling as needed
+        backgroundColor: '#F4DBD8',
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        margin: 3,
     },
     factorText: {
-        color: '#2A0800', // Text color
-        fontWeight: 'bold', // Make the text bold
-        fontSize: 16, // Increase the font size
-        textAlign: 'center', // Center the text inside the button
-
-
-        // Add text styling as needed
+        color: '#2A0800',
+        fontWeight: 'bold',
+        fontSize: 16,
+        textAlign: 'center',
+    },
+    input: {
+        backgroundColor: '#F4DBD8',
+        color: '#2A0800',
+        minHeight: 120,
+        paddingHorizontal: 20,
+        textAlignVertical: 'center',
+        marginVertical: 20,
+        width: '80%',
+        alignSelf: 'center',
+        borderRadius: 20,
+        borderWidth: 0,
+        fontSize: 16,
     },
     imageContainer: {
-        alignItems: 'flex-end', // Align image container to the right
-        marginTop: -50, // Space between the text input and the image
-        marginRight: 10, // Space from the right edge of the screen
+        alignItems: 'flex-end',
+        marginTop: -50,
+        marginRight: 10,
     },
     imageStyle: {
-        width: 170, // Set the width of your image
-        height: 170, // Set the height of your image
-        resizeMode: 'contain', // Keep the image's aspect ratio
+        width: 170,
+        height: 170,
+        resizeMode: 'contain',
     },
     footer: {
-        backgroundColor: '#775144', // Background color of the footer
-        padding: 10, // Padding inside the footer
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'center', // Center content horizontally
+        backgroundColor: '#775144',
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-
+    backButton: {
+        backgroundColor: '#2A0800',
+        borderRadius: 30,
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        marginTop: 20,
+        marginBottom: 20,
+        width: width * 0.8,
+    },
+    backButtonText: {
+        color: '#F4DBD8',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 });
 
 export default MoodScreen;

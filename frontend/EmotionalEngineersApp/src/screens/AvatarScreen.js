@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Platform,
+  useWindowDimensions,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useWindowDimensions } from 'react-native';
 
-const AvatarScreen = () => {
+const AvatarScreen = ({ navigation }) => {
   const [name, setName] = useState('Ana Pop');
   const [dob, setDob] = useState('23/05/1995');
   const [country, setCountry] = useState('Romania');
   const [avatar, setAvatar] = useState(require('../../assets/defaultavatar.png'));
 
-  const { width, height } = useWindowDimensions();
+  const window = useWindowDimensions();
 
   useEffect(() => {
-    requestMediaLibraryPermissions();
-  }, []);
-
-  const requestMediaLibraryPermissions = async () => {
-    if (Platform.OS !== 'web') {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
       }
-    }
-  };
+    })();
+  }, []);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,8 +43,12 @@ const AvatarScreen = () => {
     }
   };
 
+  const handleBack = () => {
+    navigation.navigate('HomeScreen');
+  };
+
   return (
-    <View style={[styles.container, { width, height }]}>
+    <View style={[styles.container, { minHeight: window.height }]}>
       <Text style={styles.title}>Edit Profile</Text>
 
       <View style={styles.avatarContainer}>
@@ -80,7 +90,7 @@ const AvatarScreen = () => {
       </TouchableOpacity>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Text style={styles.backButtonText}>Back to Home Page</Text>
         </TouchableOpacity>
       </View>

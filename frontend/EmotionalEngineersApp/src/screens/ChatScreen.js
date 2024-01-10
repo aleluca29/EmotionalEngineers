@@ -1,18 +1,25 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Make sure to install this package
+import { useWindowDimensions } from 'react-native';
 
-const ChatScreen = () => {
+const ChatScreen = ({ navigation }) => {
+    const windowDimensions = useWindowDimensions();
+
+    const handleBackToHome = () => {
+        navigation.navigate('HomeScreen');
+    };
+
     return (
         <>
-            <StatusBar barStyle="dark-content" />
-            <View style={styles.container}>
+            <StatusBar barStyle="dark-content"/>
+            <View style={[styles.container, {minHeight: windowDimensions.height}]}>
                 <View style={styles.header}>
                     <Text style={styles.headerText}>CHAT WITH ME</Text>
                 </View>
 
                 <View style={styles.chatContent}>
-
+                    {/* User's chat bubble */}
                     <View style={styles.chatBubbleUser}>
                         <Text style={styles.userLabel}>You</Text>
                         <TextInput
@@ -23,6 +30,7 @@ const ChatScreen = () => {
                         />
                     </View>
 
+                    {/* Chatbot's chat bubble */}
                     <View style={styles.chatBubbleBot}>
                         <Text style={styles.botLabel}>Chatbot</Text>
                         <Text style={styles.botText}>
@@ -30,17 +38,18 @@ const ChatScreen = () => {
                         </Text>
                         <View style={styles.iconsContainer}>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="thumb-up-outline" size={20} color="#000" />
+                                <Icon name="thumb-up-outline" size={20} color="#000"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="thumb-down-outline" size={20} color="#000" />
+                                <Icon name="thumb-down-outline" size={20} color="#000"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="content-copy" size={20} color="#000" />
+                                <Icon name="content-copy" size={20} color="#000"/>
                             </TouchableOpacity>
                         </View>
                     </View>
 
+                    {/* Another chatbot's chat bubble */}
                     <View style={styles.chatBubbleBot}>
                         <Text style={styles.botLabel}>Chatbot</Text>
                         <Text style={styles.botText}>
@@ -51,13 +60,13 @@ const ChatScreen = () => {
                         </Text>
                         <View style={styles.iconsContainer}>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="thumb-up-outline" size={20} color="#000" />
+                                <Icon name="thumb-up-outline" size={20} color="#000"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="thumb-down-outline" size={20} color="#000" />
+                                <Icon name="thumb-down-outline" size={20} color="#000"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconButton}>
-                                <Icon name="content-copy" size={20} color="#000" />
+                                <Icon name="content-copy" size={20} color="#000"/>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -74,14 +83,13 @@ const ChatScreen = () => {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.homeButton}>
+                <TouchableOpacity style={styles.homeButton} onPress={handleBackToHome}>
                     <Text style={styles.homeButtonText}>Back to Home Page</Text>
                 </TouchableOpacity>
             </View>
         </>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -19,8 +19,9 @@ const RegisterScreen = ({ navigation }) => {
     // Registration logic here
   };
 
+  // Corrected navigateToLogin function
   const navigateToLogin = () => {
-    navigation.navigate('LoginScreen');
+    navigation.navigate('Login'); // Use the correct screen name as defined in the stack navigator
   };
 
   return (
@@ -75,23 +76,24 @@ const RegisterScreen = ({ navigation }) => {
                 secureTextEntry
               />
             </View>
+
+            {/* Register Button */}
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={handleRegister}
+            >
+              <Text style={styles.buttonText}>Register Now</Text>
+            </TouchableOpacity>
+
+            {/* Back Button */}
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={navigateToLogin}
+            >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+
           </View>
-
-          {/* Register Button */}
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={handleRegister}
-          >
-            <Text style={styles.buttonText}>Register Now</Text>
-          </TouchableOpacity>
-
-          {/* Back Button */}
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={navigateToLogin}
-          >
-            <Text style={styles.buttonText}>Back</Text>
-          </TouchableOpacity>
 
           {/* Footer with Brain Image */}
           <View style={styles.footerContainer}>
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#775144',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: -200,
+     marginBottom: -200,
   },
 });
 

@@ -16,6 +16,11 @@ import {
 const LoginScreen = ({ navigation }) => {
     const { width } = useWindowDimensions(); // Hooks API for real-time dimensions
 
+    // Function to handle navigation to the Home screen
+    const navigateToHome = () => {
+        navigation.navigate('HomeScreen'); // Replace 'HomeScreen' with the actual name of your home screen
+    };
+
     // Function to handle the navigation to the Register screen
     const navigateToRegister = () => {
         navigation.navigate('RegisterScreen');
@@ -78,7 +83,9 @@ const LoginScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.fixedContainer}>
                         {/* Login Button */}
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => {/* Logic to handle login */}}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={navigateToHome}>
                             <Text style={styles.buttonText}>Log in</Text>
                         </TouchableOpacity>
 
@@ -90,7 +97,7 @@ const LoginScreen = ({ navigation }) => {
                     </View>
                 </ImageBackground>
                 <View style={styles.footer}>
-                    {/* You can add any content you want in the footer here */}
+                    {/* Footer content can be added here */}
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -153,14 +160,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#F4DBD8',
         fontWeight: 'bold',
-        fontSize: 18, // Consider using a scaling library for different screen sizes
+        fontSize: 18,
     },
     registerContainer: {
         alignSelf: 'center',
     },
     registerText: {
         color: '#2A0800',
-        fontSize: 14, // Consider using a scaling library for different screen sizes
+        fontSize: 14,
     },
     registerLink: {
         fontWeight: 'bold',
