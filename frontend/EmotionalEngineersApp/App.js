@@ -16,9 +16,9 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="MoodTrackerScreen"
+        initialRouteName="RegisterScreen"
         screenOptions={{
-          headerShown: false, // This will hide the header for all screens
+          headerShown: false,
         }}
       >
           <Stack.Screen name="Login" component={LoginScreen}/>

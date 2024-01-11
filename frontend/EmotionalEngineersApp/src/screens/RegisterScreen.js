@@ -13,15 +13,14 @@ import {
 } from 'react-native';
 
 const RegisterScreen = ({ navigation }) => {
-  const { height } = useWindowDimensions(); // Get the window's height for responsive styling
+  const { height } = useWindowDimensions();
 
   const handleRegister = () => {
-    // Registration logic here
+    // Handle the registration logic
   };
 
-  // Corrected navigateToLogin function
   const navigateToLogin = () => {
-    navigation.navigate('Login'); // Use the correct screen name as defined in the stack navigator
+    navigation.navigate('Login');
   };
 
   return (
@@ -31,11 +30,9 @@ const RegisterScreen = ({ navigation }) => {
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <ScrollView contentContainerStyle={[styles.scrollViewContent, { minHeight: height }]}>
+        <ScrollView contentContainerStyle={[styles.scrollViewContent, { paddingBottom: height * 0.1 }]}>
           <View style={styles.overlayContainer}>
             <Text style={styles.titleText}>REGISTER</Text>
-
-            {/* Email Input */}
             <View style={styles.inputContainer}>
               <Image
                 source={require('../../assets/icon_email.png')}
@@ -48,8 +45,6 @@ const RegisterScreen = ({ navigation }) => {
                 keyboardType="email-address"
               />
             </View>
-
-            {/* Password Input */}
             <View style={styles.inputContainer}>
               <Image
                 source={require('../../assets/icon_password.png')}
@@ -62,8 +57,6 @@ const RegisterScreen = ({ navigation }) => {
                 secureTextEntry
               />
             </View>
-
-            {/* Confirm Password Input */}
             <View style={styles.inputContainer}>
               <Image
                 source={require('../../assets/icon_password.png')}
@@ -76,39 +69,29 @@ const RegisterScreen = ({ navigation }) => {
                 secureTextEntry
               />
             </View>
-
-            {/* Register Button */}
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={handleRegister}
-            >
-              <Text style={styles.buttonText}>Register Now</Text>
-            </TouchableOpacity>
-
-            {/* Back Button */}
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={navigateToLogin}
-            >
-              <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
-
           </View>
-
-          {/* Footer with Brain Image */}
-          <View style={styles.footerContainer}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={handleRegister}
+          >
+            <Text style={styles.buttonText}>Register Now</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={navigateToLogin}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+          <View style={styles.brainContainer}>
             <Image
               source={require('../../assets/brain.png')}
               style={styles.brainImage}
             />
           </View>
-
-          {/* Footer */}
-          <View style={styles.footer}>
-            {/* You can add any content you want in the footer here */}
-          </View>
-
         </ScrollView>
+        <View style={styles.footer}>
+          {/* Footer content if needed */}
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -127,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.5)',
     padding: 20,
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 20,
   },
   titleText: {
     fontSize: 28,
@@ -167,10 +150,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-  footerContainer: {
+  brainContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    marginBottom: 20, // Adjust this value as needed to create space above the footer
   },
   brainImage: {
     width: 170,
@@ -186,7 +170,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#775144',
     justifyContent: 'center',
     alignItems: 'center',
-     marginBottom: -200,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 });
 

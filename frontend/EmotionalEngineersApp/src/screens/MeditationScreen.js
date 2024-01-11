@@ -1,214 +1,85 @@
+// MeditationScreen.js
 import React from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Image,
-    ImageBackground,
-    TouchableOpacity,
-    Linking,
-    useWindowDimensions,
-} from 'react-native';
-
-import iconHeart from '../../assets/heart.png';
-import iconHeadphones from '../../assets/headphones.png';
-import firstIcon from '../../assets/icon1.png';
-import secondIcon from '../../assets/icon2.png';
-import borderImg from '../../assets/border.png';
-import bannerImg from '../../assets/banner.png';
+import { View, StyleSheet, TouchableOpacity, Text, Linking, ScrollView, useWindowDimensions } from 'react-native';
+import WheelOfFortune from './WheelOfFortune';
 
 const MeditationScreen = ({ navigation }) => {
     const { width, height } = useWindowDimensions();
-    const iconSize = width * 0.08;
+    const wheelSize = Math.min(width, height) * 0.8; // Adjust the size of the wheel based on the screen size
 
-    const openYouTubeVideo = (url) => {
-        Linking.openURL(url).catch((err) => console.error("Couldn't load page", err));
-    };
+    const sectors = [
+         { color: '#E5243B', label: 'Song1', url: 'https://www.youtube.com/watch?v=tXheHe3T4lg' },
+        { color: '#DDA63A', label: 'Song2', url: 'https://www.youtube.com/watch?v=8PxQiTiX3mg' },
+        { color: '#00FF00', label: 'Song3', url: 'https://www.youtube.com/watch?v=0vy_MwBOgTw' },
+        { color: '#FFFF00', label: 'Song4', url: 'https://www.youtube.com/watch?v=ffDNsnxWTwo' },
+        { color: '#0000FF', label: 'Song5', url: 'https://www.youtube.com/watch?v=d9C4y0DBJKc' },
+        { color: '#4B0082', label: 'Song6', url: 'https://www.youtube.com/watch?v=cI4ryatVkKw' },
+    ];
 
-    const navigateToHome = () => {
-        navigation.navigate('HomeScreen');
+    const onWheelFinish = (sector) => {
+        console.log("Selected Sector:", sector.label);
+        if (sector.url) {
+            Linking.openURL(sector.url).catch(err => console.error("Couldn't open URL", err));
+        }
     };
 
     return (
-        <View style={styles(width, height, iconSize).container}>
-            <View style={{ height: height * 0.10 }} />
-
-            <Text style={styles(width, height, iconSize).title}>Meditation time!</Text>
-
-            <Text style={styles(width, height, iconSize).subtitle}>
-                Ease the mind into a restful night’s sleep with these deep, ambient tones.
-            </Text>
-
-            <View style={{ height: height * 0.05 }} />
-
-            <View style={styles(width, height, iconSize).row}>
-                <View style={styles(width, height, iconSize).pair}>
-                    <Image source={iconHeart} style={styles(width, height, iconSize).icon} />
-                    <Text style={styles(width, height, iconSize).textBox}>24.234{'\n'}favorites</Text>
+        <View style={styles.mainContainer}>
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Meditation time!</Text>
+                    <WheelOfFortune sectors={sectors} radius={wheelSize / 2} onFinished={onWheelFinish} />
                 </View>
-
-                <View style={{ width: width * 0.55 }} />
-
-                <View style={styles(width, height, iconSize).pair}>
-                    <Image source={iconHeadphones} style={styles(width, height, iconSize).icon} />
-                    <Text style={styles(width, height, iconSize).textBox}>34.234{'\n'}listeners</Text>
-                </View>
-            </View>
-
-            <View style={{ height: height * 0.05 }} />
-
-            <Text style={styles(width, height, iconSize).pickMeditationText}>Pick a Meditation</Text>
-
-            <View style={{ height: height * 0.02 }} />
-
-            <View style={styles(width, height, iconSize).videoLinkContainer}>
-                <TouchableOpacity
-                    style={styles(width, height, iconSize).videoLink}
-                    onPress={() => openYouTubeVideo('https://www.youtube.com/watch?v=aJOTlE1K90k')}
-                >
-                    <ImageBackground source={secondIcon} style={styles(width, height, iconSize).iconOverlay} imageStyle={styles(width, height, iconSize).iconBase}>
-                        <Image source={firstIcon} style={styles(width, height, iconSize).iconTop} />
-                    </ImageBackground>
-                    <Text style={styles(width, height, iconSize).videoTitle}>Play Relaxing Sounds for Sleep</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles(width, height, iconSize).videoLink}
-                    onPress={() => openYouTubeVideo('https://www.youtube.com/watch?v=5qap5aO4i9A')}
-                >
-                    <ImageBackground source={secondIcon} style={styles(width, height, iconSize).iconOverlay} imageStyle={styles(width, height, iconSize).iconBase}>
-                        <Image source={firstIcon} style={styles(width, height, iconSize).iconTop} />
-                    </ImageBackground>
-                    <Text style={styles(width, height, iconSize).videoTitle}>Play Calm Piano Music 24/7</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles(width, height, iconSize).bannerContainer}>
-                <Image source={bannerImg} style={styles(width, height, iconSize).bannerImage} />
-            </View>
-
-            <View style={{ height: height * 0.02 }} />
-
-            <View style={styles(width, height, iconSize).bottomContainer}>
-                <Image source={borderImg} style={styles(width, height, iconSize).bannerStyle} />
-                <TouchableOpacity onPress={navigateToHome} style={styles(width, height, iconSize).homeButton}>
-                    <Text style={styles(width, height, iconSize).homeButtonText}>Back to Home Page</Text>
+            </ScrollView>
+            <View style={styles.footer}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')} style={styles.homeButton}>
+                    <Text style={styles.homeButtonText}>Back to Home Page</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
 };
 
-const styles = (width, height, iconSize) => StyleSheet.create({
-    container: {
+const styles = StyleSheet.create({
+    mainContainer: {
         flex: 1,
         backgroundColor: '#C09891',
+    },
+    scrollViewContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingTop: height * 0.05,
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
-        fontSize: width * 0.07,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#2A0800',
         textAlign: 'center',
-        marginBottom: height * 0.02,
-    },
-    subtitle: {
-        fontSize: width * 0.045,
-        color: '#000',
-        textAlign: 'center',
-        marginBottom: height * 0.02,
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-    },
-    pair: {
-        alignItems: 'center',
-        flexDirection: 'column',
-    },
-    icon: {
-        width: iconSize,
-        height: iconSize,
-        resizeMode: 'contain',
-    },
-    textBox: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        fontSize: width * 0.03,
-        color: '#000',
-        marginTop: 8,
-    },
-    bannerContainer: {
-        width: '100%',
-        alignItems: 'center',
-        marginTop: 50,
-        marginBottom: 10,
-    },
-    bannerImage: {
-        width: '90%',
-        height: 150,
-        resizeMode: 'contain',
-    },
-    iconOverlay: {
-        width: 30,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 10,
-    },
-    iconTop: {
-        position: 'absolute',
-        width: 8,
-        height: 16,
-        resizeMode: 'contain',
-        alignSelf: 'center',
-        top: '50%',
-        marginTop: -8,
-    },
-    videoLink: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-    },
-    videoTitle: {
-        fontSize: width * 0.05,
-        color: 'blue',
-        textAlign: 'center',
-        textDecorationLine: 'underline',
-    },
-    videoLinkContainer: {
-        alignItems: 'flex-start',
-    },
-    bottomContainer: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        alignItems: 'center',
-        zIndex: 3,
-    },
-    bannerStyle: {
-        width: '100%',
-        height: 90,
-        resizeMode: 'stretch',
+        marginBottom: 100,
     },
     homeButton: {
-        position: 'absolute',
-        bottom: 20,
-        width: '90%',
         backgroundColor: '#2A0800',
-        padding: 15,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        width: '60%',
+        alignSelf: 'center',
     },
     homeButtonText: {
+        textAlign: 'center',
         color: '#F4DBD8',
-        fontSize: 18,
         fontWeight: 'bold',
+        fontSize: 18,
+    },
+    footer: {
+        height: 60,
+        backgroundColor: '#775144',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

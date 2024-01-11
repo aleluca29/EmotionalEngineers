@@ -97,7 +97,7 @@ const LoginScreen = ({ navigation }) => {
                     </View>
                 </ImageBackground>
                 <View style={styles.footer}>
-                    {/* Footer content can be added here */}
+
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
